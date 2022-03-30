@@ -22,13 +22,17 @@ def bin2dec():
         decNum += 2 ** power * (binNum % 10)
         binNum //= 10
         power += 1
-
+        
     msg = f'Your converted value is: {decNum}'
 
     if power > 8:
         showinfo(title='Error', message='Wrong number of digits')
     else:
         showinfo(title='Information', message=msg)
+    
+    '''else: I am working on error handling
+        showinfo(title='Error', message='Not binary values')'''
+
 
 # app frame
 app = ttk.Frame(root)
