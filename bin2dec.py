@@ -6,33 +6,36 @@ from tkinter.messagebox import showinfo
 root = tk.Tk()
 root.geometry("300x150")
 root.resizable(False, False)
-root.title('Binary 2 Decimal')
+root.title('Binary 2 Decimal Converter')
 
 # function value
 value = tk.StringVar()
 
-# binary conversion
+# binary conversion & error handling
 def bin2dec():
     
-    binNum = int(value.get())
-    decNum = 0
-    power = 0
-
-    while binNum > 0:
-        decNum += 2 ** power * (binNum % 10)
-        binNum //= 10
-        power += 1
-        
-    msg = f'Your converted value is: {decNum}'
-
-    if power > 8:
-        showinfo(title='Error', message='Wrong number of digits')
-    else:
-        showinfo(title='Information', message=msg)
+    for i in value.get():
+        if i in '10':
+            continue
+        else:
+            showinfo(title='Error', message='Not binary digits')
+            exit()
     
-    '''else: I am working on error handling
-        showinfo(title='Error', message='Not binary values')'''
+    if len(value.get()) > 8:
+        showinfo(title='Error', message='Wrong number of digits')
+        exit()
+    else:
+        binNum = int(value.get())
+        decNum = 0
+        power = 0
 
+        while binNum > 0 and power < 8:
+            decNum += 2 ** power * (binNum % 10)
+            binNum //= 10
+            power += 1
+        
+        msg = f'Your converted value is: {decNum}'
+        showinfo(title='Results', message=msg)
 
 # app frame
 app = ttk.Frame(root)
